@@ -1,16 +1,13 @@
 # game_sandbox
 
-A new Flutter project.
+This is a personal repository where I will compile a variety of different game modes that I can apply to future games. This will be a skeletal version, to test logic and create new ideas.
 
-## Getting Started
+# game modes in progress
 
-This project is a starting point for a Flutter application.
+- speed run (multiplayer)
 
-A few resources to get you started if this is your first Flutter project:
+# game modes in discussion
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+- protect the king
+- turn based tdm
+- secure flag
