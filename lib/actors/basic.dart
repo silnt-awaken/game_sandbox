@@ -11,15 +11,17 @@ class BasicPlayer extends SpriteComponent with KeyboardHandler, HasGameRef<GameS
         );
 
   final Vector2 velocity = Vector2.zero();
-  final double moveSpeed = 200;
+  double moveSpeed = 200;
   int horizontalDirection = 0;
   int verticalDirection = 0;
+  bool hasWallHit = false;
 
   @override
   void update(double dt) {
     velocity.x = horizontalDirection * moveSpeed;
     velocity.y = verticalDirection * moveSpeed;
     position += velocity * dt;
+    print(position);
 
     super.update(dt);
   }
@@ -49,9 +51,21 @@ class BasicPlayer extends SpriteComponent with KeyboardHandler, HasGameRef<GameS
   @override
   void onCollisionStart(Set<Vector2> intersectionPoints, PositionComponent other) {
     super.onCollisionStart(intersectionPoints, other);
+    final collisionPoint = intersectionPoints.first;
+
     if (other is ScreenHitbox) {
-      print('Collision with screen edge detected!');
-      position = Vector2(50, 50);
+      if (collisionPoint.x < 20) {
+        position = Vector2(20, position.y);
+      }
+      if (collisionPoint.x > gameRef.canvasSize.x - 100) {
+        position = Vector2(gameRef.canvasSize.x - 20, position.y);
+      }
+      if (collisionPoint.y < 20) {
+        position = Vector2(position.x, 20);
+      }
+      if (collisionPoint.y > gameRef.canvasSize.y - 20) {
+        position = Vector2(position.x, gameRef.canvasSize.y - 20);
+      }
     }
   }
 }
