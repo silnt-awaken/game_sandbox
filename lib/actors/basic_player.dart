@@ -53,25 +53,33 @@ class BasicPlayer extends SpriteComponent with KeyboardHandler, HasGameRef<GameS
     final collisionPoint = intersectionPoints.first;
 
     if (other is ScreenHitbox) {
-      if (collisionPoint.x < 20) {
-        position = Vector2(20, position.y);
+      if (collisionPoint.x < 40) {
+        position = Vector2(30, position.y);
       }
       if (collisionPoint.x > gameRef.canvasSize.x - 100) {
-        position = Vector2(gameRef.canvasSize.x - 20, position.y);
+        position = Vector2(gameRef.canvasSize.x - 30, position.y);
       }
-      if (collisionPoint.y < 20) {
-        position = Vector2(position.x, 20);
+      if (collisionPoint.y < 40) {
+        position = Vector2(position.x, 30);
       }
       if (collisionPoint.y > gameRef.canvasSize.y - 20) {
-        position = Vector2(position.x, gameRef.canvasSize.y - 20);
+        position = Vector2(position.x, gameRef.canvasSize.y - 30);
       }
 
-      if (collisionPoint.x < 30 && collisionPoint.y > gameRef.canvasSize.y - 40) {
-        position = Vector2(21, gameRef.canvasSize.y - 21);
+      if (collisionPoint.x < 40 && collisionPoint.y > gameRef.canvasSize.y - 40) {
+        position = Vector2(30, gameRef.canvasSize.y - 30);
       }
 
       if (collisionPoint.x < 30 && collisionPoint.y < 40) {
-        position = Vector2(21, 21);
+        position = Vector2(30, 30);
+      }
+
+      if (collisionPoint.x > gameRef.canvasSize.x - 40 && collisionPoint.y < 40) {
+        position = Vector2(gameRef.canvasSize.x - 30, 30);
+      }
+
+      if (collisionPoint.x > gameRef.canvasSize.x - 40 && collisionPoint.y > gameRef.canvasSize.y - 40) {
+        position = Vector2(gameRef.canvasSize.x - 30, gameRef.canvasSize.y - 30);
       }
     }
   }
