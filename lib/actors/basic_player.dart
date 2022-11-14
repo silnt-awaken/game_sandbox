@@ -4,11 +4,10 @@ import 'package:flutter/services.dart';
 import 'package:game_sandbox/config/game.dart';
 
 class BasicPlayer extends SpriteComponent with KeyboardHandler, HasGameRef<GameSandbox>, CollisionCallbacks {
-  BasicPlayer({required super.position})
-      : super(
-          size: Vector2.all(32),
-          anchor: Anchor.center,
-        );
+  BasicPlayer({required super.position, this.newAngle})
+      : super(size: Vector2.all(32), anchor: Anchor.center, angle: newAngle);
+
+  final double? newAngle;
 
   final Vector2 velocity = Vector2.zero();
   double moveSpeed = 200;
@@ -21,14 +20,14 @@ class BasicPlayer extends SpriteComponent with KeyboardHandler, HasGameRef<GameS
     velocity.x = horizontalDirection * moveSpeed;
     velocity.y = verticalDirection * moveSpeed;
     position += velocity * dt;
-    print(position);
 
     super.update(dt);
   }
 
   @override
   Future<void> onLoad() async {
-    sprite = await gameRef.loadSprite('dot.png');
+    sprite = await gameRef.loadSprite('player.png');
+    flipVertically();
     add(RectangleHitbox());
   }
 
@@ -65,6 +64,14 @@ class BasicPlayer extends SpriteComponent with KeyboardHandler, HasGameRef<GameS
       }
       if (collisionPoint.y > gameRef.canvasSize.y - 20) {
         position = Vector2(position.x, gameRef.canvasSize.y - 20);
+      }
+
+      if (collisionPoint.x < 30 && collisionPoint.y > gameRef.canvasSize.y - 40) {
+        position = Vector2(21, gameRef.canvasSize.y - 21);
+      }
+
+      if (collisionPoint.x < 30 && collisionPoint.y < 40) {
+        position = Vector2(21, 21);
       }
     }
   }
