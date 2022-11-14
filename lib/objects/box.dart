@@ -3,6 +3,7 @@ import 'package:flame/components.dart';
 import 'package:game_sandbox/actors/basic_player.dart';
 
 import '../config/game.dart';
+import 'bullet.dart';
 
 class BoxObject extends SpriteComponent with HasGameRef<GameSandbox>, CollisionCallbacks {
   BoxObject({required super.position})
@@ -22,6 +23,10 @@ class BoxObject extends SpriteComponent with HasGameRef<GameSandbox>, CollisionC
     super.onCollisionStart(intersectionPoints, other);
     if (other is BasicPlayer) {
       print('secured');
+    }
+
+    if (other is Bullet) {
+      removeFromParent();
     }
   }
 }
