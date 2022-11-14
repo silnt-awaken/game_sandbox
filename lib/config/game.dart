@@ -11,17 +11,24 @@ class GameSandbox extends FlameGame
   GameSandbox();
 
   late BasicPlayer _player;
-  late BoxObject _box;
   late Bullet _bullet;
+  late BoxObject _box;
+  late SpriteComponent _background;
+
+  static Vector2 boxPosition = Vector2(0, 0);
 
   @override
   Future<void> onLoad() async {
-    await images.loadAll(['player.png', 'box.png', 'bullet.png']);
+    await images.loadAll(['player.png', 'box.png', 'bullet.png', 'background.png']);
 
     _player = BasicPlayer(position: Vector2(50, 50));
-    _box = BoxObject(position: Vector2(100, 100));
+    _box = BoxObject(position: Vector2(canvasSize.x - 90, 50));
+    boxPosition = _box.position;
+    _background = SpriteComponent()
+      ..sprite = await loadSprite('background.png')
+      ..size = size;
 
-    addAll([ScreenHitbox(), _box, _player]);
+    addAll([_background, ScreenHitbox(), _box, _player]);
   }
 
   @override
@@ -38,7 +45,11 @@ class GameSandbox extends FlameGame
   @override
   void onTapDown(TapDownInfo info) {
     mouseVector = _player.gameRef.camera.screenToWorld(info.eventPosition.global);
-    _bullet = Bullet(position: Vector2(_player.position.x, _player.position.y - 10), size: Vector2(32, 64));
+    _bullet = Bullet(
+      position: Vector2(_player.position.x, _player.position.y - 10),
+      size: Vector2(32, 64),
+      direction: (_player.gameRef.camera.screenToWorld(info.eventPosition.global) - _player.position),
+    );
     add(_bullet);
     super.onTapDown(info);
   }

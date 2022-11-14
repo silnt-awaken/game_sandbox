@@ -22,7 +22,9 @@ class BoxObject extends SpriteComponent with HasGameRef<GameSandbox>, CollisionC
   void onCollisionStart(Set<Vector2> intersectionPoints, PositionComponent other) {
     super.onCollisionStart(intersectionPoints, other);
     if (other is BasicPlayer) {
-      print('secured');
+      gameRef.add(PositionComponent()
+        ..position = position
+        ..size = size);
     }
 
     if (other is Bullet) {
