@@ -5,7 +5,7 @@ import 'package:game_sandbox/config/game.dart';
 
 class BasicPlayer extends SpriteComponent with KeyboardHandler, HasGameRef<GameSandbox>, CollisionCallbacks {
   BasicPlayer({required super.position, this.newAngle})
-      : super(size: Vector2.all(32), anchor: Anchor.center, angle: newAngle);
+      : super(size: Vector2.all(64), anchor: Anchor.center, angle: newAngle);
 
   final double? newAngle;
 

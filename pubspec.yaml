@@ -14,7 +14,7 @@ dependencies:
 
   cupertino_icons: ^1.0.2
   flame: ^1.4.0
-  bonfire: ^2.11.2
+  flame_bloc: ^1.8.0
 
 dev_dependencies:
   flutter_test:

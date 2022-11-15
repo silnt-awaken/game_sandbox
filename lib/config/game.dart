@@ -1,4 +1,4 @@
-import 'package:bonfire/bonfire.dart';
+import 'package:flame/components.dart';
 import 'package:flame/events.dart';
 import 'package:flame/game.dart';
 import 'package:flutter/material.dart';
@@ -22,7 +22,7 @@ class GameSandbox extends FlameGame
     await images.loadAll(['player.png', 'box.png', 'bullet.png', 'background.png']);
 
     _player = BasicPlayer(position: Vector2(50, 50));
-    _box = BoxObject(position: Vector2(canvasSize.x - 90, 50));
+    _box = BoxObject(position: Vector2(size.x / 2, size.y / 2));
     boxPosition = _box.position;
     _background = SpriteComponent()
       ..sprite = await loadSprite('background.png')
@@ -46,8 +46,9 @@ class GameSandbox extends FlameGame
   void onTapDown(TapDownInfo info) {
     mouseVector = _player.gameRef.camera.screenToWorld(info.eventPosition.global);
     _bullet = Bullet(
-      position: Vector2(_player.position.x, _player.position.y - 10),
-      size: Vector2(32, 64),
+      position: (_player.position +
+          (_player.gameRef.camera.screenToWorld(info.eventPosition.global) - _player.position) * 0.1),
+      size: Vector2(64, 64),
       direction: (_player.gameRef.camera.screenToWorld(info.eventPosition.global) - _player.position),
     );
     add(_bullet);
